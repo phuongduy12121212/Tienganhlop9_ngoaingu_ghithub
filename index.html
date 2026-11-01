@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Practice</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#a18cd1,#fbc2eb);
+  color: #292344;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px #594b7c40;
+}
+
+h1 {
+  text-align: center;
+  color: #7856c8;
+}
+
+.subtitle {
+  text-align: center;
+  color: #888;
+}
+
+.question {
+  background: #f7f3ff;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 14px;
+}
+
+.question input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border: 2px solid #d6c8fa;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+.question input:focus {
+  border-color: #9167db;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg,#9066db,#c477dc);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+#result {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.correct { color: green; }
+.wrong { color: #e34b67; }
+
+.answer {
+  font-size: 14px;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 ENGLISH PRACTICE</h1>
+<p class="subtitle">Word Formation - Bài tập 12 câu</p>
+
+<div id="quiz"></div>
+
+<button onclick="checkAnswers()">KIỂM TRA ĐÁP ÁN</button>
+<button onclick="showAnswers()" style="background:#6c75a9">
+XEM ĐÁP ÁN
+</button>
+<button onclick="resetQuiz()" style="background:#777">
+LÀM LẠI
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+const questions = [
+{
+q:"1. People in my _____ are friendly and always willing to help each other.",
+a:"neighbourhood",
+w:"neighbour"
+},
+{
+q:"2. The new library is fully _____ with computers, projectors, and air conditioners.",
+a:"equipped",
+w:"equip"
+},
+{
+q:"3. The handmade products were _____ displayed in the shop windows to attract customers.",
+a:"attractively",
+w:"attract"
+},
+{
+q:"4. Visitors from _____ villages often come here to enjoy the traditional festival.",
+a:"neighbouring",
+w:"neighbour"
+},
+{
+q:"5. The nightlife in the city is incredibly _____, with bars, clubs, and live music venues open until the early hours.",
+a:"lively",
+w:"live"
+},
+{
+q:"6. Air _____ from traffic is a major concern, and efforts are being made to reduce _____ in the city.",
+a:"pollution, pollution",
+w:"pollute"
+},
+{
+q:"7. Public amenities make the town a _____ place for its residents.",
+a:"livable",
+w:"live"
+},
+{
+q:"8. The river is too heavily _____ for people to use its water safely.",
+a:"polluted",
+w:"pollute"
+},
+{
+q:"9. The school has invested heavily in modern teaching _____ to improve the quality of lessons.",
+a:"equipment",
+w:"equip"
+},
+{
+q:"10. The sudden power failure was caused by a problem with the _____ system.",
+a:"electrical",
+w:"electric"
+},
+{
+q:"11. The government encourages households to use _____ more efficiently during periods of high demand.",
+a:"electricity",
+w:"electric"
+},
+{
+q:"12. The ancient temple is one of the city's most famous tourist _____.",
+a:"attractions",
+w:"attraction"
+}
+];
+
+const quiz = document.getElementById("quiz");
+
+questions.forEach((item,i) => {
+  quiz.innerHTML += `
+    <div class="question" id="q${i}">
+      <b>${item.q}</b>
+      <input id="a${i}" placeholder="Nhập đáp án..." autocomplete="off">
+      <div class="answer" id="r${i}"></div>
+    </div>
+  `;
+});
+
+function checkAnswers() {
+  let score = 0;
+
+  questions.forEach((item,i) => {
+    let user = document.getElementById("a"+i)
+      .value.trim().toLowerCase()
+      .replace(/\s+/g," ");
+
+    let correct = item.a.toLowerCase();
+
+    let result = document.getElementById("r"+i);
+
+    if(user === correct) {
+      score++;
+      result.innerHTML = "✓ Chính xác!";
+      result.className = "answer correct";
+    } else {
+      result.innerHTML = "✗ Chưa đúng! Đáp án: " + item.a;
+      result.className = "answer wrong";
+    }
+  });
+
+  document.getElementById("result").innerHTML =
+    "🏆 Kết quả: " + score + "/12 điểm";
+}
+
+function showAnswers() {
+  questions.forEach((item,i) => {
+    let result = document.getElementById("r"+i);
+    result.innerHTML = "Đáp án: " + item.a;
+    result.className = "answer correct";
+  });
+}
+
+function resetQuiz() {
+  questions.forEach((item,i) => {
+    document.getElementById("a"+i).value = "";
+    document.getElementById("r"+i).innerHTML = "";
+  });
+  document.getElementById("result").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
